@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .login-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .login-container h2 {
+            margin: 0 0 15px;
+            text-align: center;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .login-container button:hover {
+            background-color: #0056b3;
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .signup-link a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div class="signup-link">
+            <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Hashing function for password encryption (Example: simple base64 encoding)
+        function hashPassword(password) {
+            return btoa(password); // Base64 encoding (you can replace this with a stronger hashing algorithm)
+        }
+
+        // Simulated databases
+        const dbA = [
+            { username: "userA1", password: hashPassword("passwordA1") },
+            { username: "userA2", password: hashPassword("passwordA2") }
+        ];
+
+        const dbB = [
+            { username: "userB1", password: hashPassword("passwordB1") },
+            { username: "userB2", password: hashPassword("passwordB2") }
+        ];
+
+        document.getElementById("loginForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = hashPassword(document.getElementById("password").value);
+
+            // Check Database A
+            const userInDbA = dbA.find(user => user.username === username && user.password === password);
+            if (userInDbA) {
+                alert("Login successful! Redirecting to the normal website...");
+                window.location.href = "normal-website.html";
+                return;
+            }
+
+            // Check Database B
+            const userInDbB = dbB.find(user => user.username === username && user.password === password);
+            if (userInDbB) {
+                const secondLoginRequired = confirm("Second login required. Is the second user ready to login?");
+                if (secondLoginRequired) {
+                    const secondUsername = prompt("Enter second username:");
+                    const secondPassword = hashPassword(prompt("Enter second password:"));
+                    const secondUserInDbB = dbB.find(user => user.username === secondUsername && user.password === secondPassword);
+                    if (secondUserInDbB) {
+                        alert("Second login successful! Redirecting to private website...");
+                        window.location.href = "private-website.html";
+                    } else {
+                        alert("Second login failed.");
+                    }
+                }
+                return;
+            }
+
+            alert("Login failed. User not found.");
+        });
+    </script>
+</body>
+</html>
