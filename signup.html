@@ -1,1 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .signup-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .signup-container h2 {
+            margin: 0 0 15px;
+            text-align: center;
+        }
+        .signup-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .signup-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .signup-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+            <input type="text" id="newUsername" placeholder="Enter Username" required>
+            <input type="password" id="newPassword" placeholder="Enter Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+
+    <script>
+        // Database A (for normal website users)
+        const dbA = [];
+
+        // Hashing function for password encryption
+        function hashPassword(password) {
+            return btoa(password); // Base64 encoding (replace with stronger hashing if needed)
+        }
+
+        // Handle sign-up form submission
+        document.getElementById("signupForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById("newUsername").value;
+            const password = document.getElementById("newPassword").value;
+
+            // Check if username already exists
+            const existingUser = dbA.find(user => user.username === username);
+
+            if (existingUser) {
+                alert("Username already exists. Please choose a different username.");
+                return;
+            }
+
+            // Add new user to Database A
+            dbA.push({ username: username, password: hashPassword(password) });
+
+            alert("Sign-up successful! You can now log in.");
+            console.log("Updated Database A:", dbA);
+
+            // Redirect to login page (replace with actual login page link)
+            window.location.href = "index.html";
+        });
+    </script>
+</body>
+</html>
 
