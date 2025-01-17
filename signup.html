@@ -59,7 +59,7 @@
 
     <script>
         // Database A (for normal website users)
-        const dbA = [];
+        const dbA.db = [];
 
         // Hashing function for password encryption
         function hashPassword(password) {
@@ -74,7 +74,7 @@
             const password = document.getElementById("newPassword").value;
 
             // Check if username already exists
-            const existingUser = dbA.find(user => user.username === username);
+            const existingUser = dbA.db.find(user => user.username === username);
 
             if (existingUser) {
                 alert("Username already exists. Please choose a different username.");
@@ -82,10 +82,10 @@
             }
 
             // Add new user to Database A
-            dbA.push({ username: username, password: hashPassword(password) });
+            dbA.db.push({ username: username, password: hashPassword(password) });
 
             alert("Sign-up successful! You can now log in.");
-            console.log("Updated Database A:", dbA);
+            console.log("Updated Database A:", dbA.db);
 
             // Redirect to login page (replace with actual login page link)
             window.location.href = "index.html";
