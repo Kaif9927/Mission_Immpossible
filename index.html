@@ -78,12 +78,12 @@
         }
 
         // Simulated databases
-        const dbA = [
+        const dbA.db = [
             { username: "userA1", password: hashPassword("passwordA1") },
             { username: "userA2", password: hashPassword("passwordA2") }
         ];
 
-        const dbB = [
+        const dbB.db = [
             { username: "userB1", password: hashPassword("passwordB1") },
             { username: "userB2", password: hashPassword("passwordB2") }
         ];
@@ -94,7 +94,7 @@
             const password = hashPassword(document.getElementById("password").value);
 
             // Check Database A
-            const userInDbA = dbA.find(user => user.username === username && user.password === password);
+            const userInDbA = dbA.db.find(user => user.username === username && user.password === password);
             if (userInDbA) {
                 alert("Login successful! Redirecting to the normal website...");
                 window.location.href = "normal-website.html";
@@ -102,13 +102,13 @@
             }
 
             // Check Database B
-            const userInDbB = dbB.find(user => user.username === username && user.password === password);
+            const userInDbB = dbB.db.find(user => user.username === username && user.password === password);
             if (userInDbB) {
                 const secondLoginRequired = confirm("Second login required. Is the second user ready to login?");
                 if (secondLoginRequired) {
                     const secondUsername = prompt("Enter second username:");
                     const secondPassword = hashPassword(prompt("Enter second password:"));
-                    const secondUserInDbB = dbB.find(user => user.username === secondUsername && user.password === secondPassword);
+                    const secondUserInDbB = dbB.db.find(user => user.username === secondUsername && user.password === secondPassword);
                     if (secondUserInDbB) {
                         alert("Second login successful! Redirecting to private website...");
                         window.location.href = "private-website.html";
