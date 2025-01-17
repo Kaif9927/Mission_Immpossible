@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Normal Website Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 0;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .game-container {
+            margin-top: 20px;
+        }
+        canvas {
+            border: 1px solid #000;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Game!</h1>
+    </header>
+
+    <div class="game-container">
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        <p>Use the arrow keys to move the square!</p>
+    </div>
+
+    <footer>
+        &copy; 2025 Normal Website Game. All rights reserved.
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let x = canvas.width / 2;
+        let y = canvas.height / 2;
+        const squareSize = 20;
+        const speed = 5;
+
+        function drawSquare() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(x, y, squareSize, squareSize);
+        }
+
+        function moveSquare(e) {
+            if (e.key === 'ArrowUp') y -= speed;
+            if (e.key === 'ArrowDown') y += speed;
+            if (e.key === 'ArrowLeft') x -= speed;
+            if (e.key === 'ArrowRight') x += speed;
+
+            // Ensure the square stays within canvas bounds
+            x = Math.max(0, Math.min(canvas.width - squareSize, x));
+            y = Math.max(0, Math.min(canvas.height - squareSize, y));
+
+            drawSquare();
+        }
+
+        document.addEventListener('keydown', moveSquare);
+        drawSquare();
+    </script>
+</body>
+</html>
